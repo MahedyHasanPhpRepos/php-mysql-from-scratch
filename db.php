@@ -10,23 +10,42 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
+    // begin the transaction
+    $conn->beginTransaction();
 
-    // $sql_command = "alter table Test add column register_date varchar(100)" ; 
-    // $sql_command = "alter table Test drop column register" ; 
-
+    //single execution - 1
     $sql_command = "insert into Test 
         (id,firstname,lastname,email,register_date) 
         values 
-        ('888','ajax','mhdy','ajax@gmail.com','8-12-1995')";
-
+        ('8','ajax','mhdy','ajax@gmail.com','8-12-1995')";
 
     $conn->exec($sql_command);
-    $last_id = $conn->lastInsertId();
-    echo "New record created successfully. Last inserted ID is: " . $last_id . "\n";
 
 
-    echo "Everythings ok !"  ; 
 
+    //single execution - 2
+    $sql_command = "insert into Test 
+        (id,firstname,lastname,email,register_date) 
+        values 
+        ('88','mhdy','hasen','mhdy@gmail.com','8-12-1995')";
+
+    $conn->exec($sql_command);
+
+
+
+    //single execution - 3
+    $sql_command = "insert into Test 
+        (id,firstname,lastname,email,register_date) 
+        values 
+        ('888','mhdy','hasan-2','mhdy@gmail.com','8-12-1995')";
+
+    $conn->exec($sql_command);
+
+    // commit the transaction
+    $conn->commit() ;
+
+
+    echo "Everything is ok !";
 } catch (PDOException $e) {
     // echo "Connection failed: " . $e->getMessage();
     echo $sql . "<br>" . $e->getMessage();
