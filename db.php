@@ -9,20 +9,24 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbName", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // table must have a primary key 
-    $sql_command = "create table Test(
-        id int(6) unsigned auto_increment primary key, 
-        firstname varchar(30) not null,
-        lastname VARCHAR(30) not null,
-        email VARCHAR(50),
-        register_date timestamp default current_timestamp on update current_timestamp
-    )";
 
-    // $sql_command = 'drop table Test' ; 
 
-    $conn->exec($sql_command) ; 
+    // $sql_command = "alter table Test add column register_date varchar(100)" ; 
+    // $sql_command = "alter table Test drop column register" ; 
 
-    echo "Connected successfully";
+    $sql_command = "insert into Test 
+        (id,firstname,lastname,email,register_date) 
+        values 
+        ('888','ajax','mhdy','ajax@gmail.com','8-12-1995')";
+
+
+    $conn->exec($sql_command);
+    $last_id = $conn->lastInsertId();
+    echo "New record created successfully. Last inserted ID is: " . $last_id . "\n";
+
+
+    echo "Everythings ok !"  ; 
+
 } catch (PDOException $e) {
     // echo "Connection failed: " . $e->getMessage();
     echo $sql . "<br>" . $e->getMessage();
