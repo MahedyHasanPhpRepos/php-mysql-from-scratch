@@ -33,8 +33,37 @@ try {
     // this line will return us data only we select such as [id , firstname , lastname]
 
 
-    $sqlCommand = "select id , firstname, email  from Test where lastname = 'mhdy'";
+    // $sqlCommand = "select id , firstname, email  from Test where lastname = 'mhdy'";
     // this will return us [ id , firstname , email] according to seach result
+
+
+    // basic syntax for ORDER BY statement 
+    // SELECT column_name(s) FROM table_name ORDER BY column_name(s) ASC|DESC 
+
+    // $sqlCommand = "select id , email from Test order by id desc" ; 
+    // $sqlCommand = "select id , email from Test order by id asc" ; //by default order by is asc
+
+
+
+
+    // basic syntax for DELETE statement 
+    // DELETE FROM table_name WHERE some_column = some_value
+    // $sqlCommand = "delete from Test where id = 888" ; 
+
+
+
+
+    // UPDATE table_name //target table 
+    // SET column1=value, column2=value2,... //set updated values for specific column
+    // WHERE some_column=some_value  // target the row should be updated using where condition
+
+
+    // $sqlCommand = "update Test Set firstname='updated-name' , lastname='ulname' , email='u@mail.com' where id='888' " ;
+
+
+    // limit statement 
+    // $sqlCommand = "select * from Test limit 2" ; 
+
 
 
     $stmt = $conn->prepare($sqlCommand);
