@@ -11,24 +11,28 @@ try {
 
 
 
-    // $sqlCommand = "create database revision" ; 
-    // $sqlCommand = "CREATE TABLE `authors` (
-    //     `id` INT(11) NOT NULL AUTO_INCREMENT,
-    //     `first_name` VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
-    //     `last_name` VARCHAR(50) NOT NULL COLLATE 'utf8_unicode_ci',
-    //     `email` VARCHAR(100) NOT NULL COLLATE 'utf8_unicode_ci',
-    //     `birthdate` DATE NOT NULL,
-    //     `added` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    //     PRIMARY KEY (`id`),
-    //     UNIQUE INDEX `email` (`email`)
-    // )";
+    $sqlCommand = "select last_name , email from authors" ; 
 
-    $conn->exec($sqlCommand) ; 
+    // DISTINCT statement 
+    // distinct will return us unique values or no duplicate values 
+    $sqlCommand = "select distinct last_name , email from authors" ;
+    
+    
+    // $sqlCommand = "select count(last_name) as count_author from authors" ; 
+
+    // echo $conn->exec($sqlCommand ); 
+    
 
 
-    // $stmt = $conn->prepare($sqlCommand);
-    // $stmt->execute();
-    // $users = $stmt->fetchAll(); //fetchAll will return us
+    $stmt = $conn->prepare($sqlCommand);
+    $stmt->execute();
+    $authors = $stmt->fetchAll(); //fetchAll will return us
+
+    echo $authors ; 
+
+    foreach($authors as $author){
+        echo $author['last_name']. " | " ; 
+    }
 
     echo "\n";
 
