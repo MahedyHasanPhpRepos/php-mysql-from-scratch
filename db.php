@@ -9,45 +9,26 @@ try {
     $conn = new PDO("mysql:host=$host;dbname=$dbName", $user, $password);
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    // $sqlCommand = 'select * from Test' ; 
+    // $sqlCommand = 'select id , firstname from Test' ; 
+    // $sqlCommand = 'select id , firstname, email , register_date from Test' ; 
+    $sqlCommand = 'select id , firstname, email  from Test' ; 
 
-    $sql = 'insert into Test 
-            (id,firstname,lastname,email,register_date) 
-            values 
-            (:id,:firstname,:lastname,:email,:register_date) ' ; 
-
-
-    $stmt = $conn->prepare($sql) ; 
-    $stmt->bindParam(':id',$id) ; 
-    $stmt->bindParam(':firstname', $firstname);
-    $stmt->bindParam(':lastname',$lastname) ; 
-    $stmt->bindParam(':email',$email) ; 
-    $stmt->bindParam(':register_date',$register_date) ;
-
-    //inserting row and execution - 1
-    $id = '8' ; 
-    $firstname = 'mhdy' ; 
-    $lastname = 'hasan' ; 
-    $email = "mhdy@gmail.com" ; 
-    $register_date = '12-12-12' ; 
+    $stmt = $conn->prepare($sqlCommand) ; 
     $stmt->execute() ; 
+    $users = $stmt->fetchAll() ; //fetchAll will return us
+    //Array data of total Table Test 
+    // $users[0] //is a single row of Test table 
+    // $users[0][0] //is first element of data in first row of Test table 
+    // echo $users[0][1] ; //is firstname of first row in Test table 
 
-     //inserting row and execution - 2
-     $id = '88' ; 
-     $firstname = 'mhdy2' ; 
-     $lastname = 'hasan' ; 
-     $email = "mhdy2@gmail.com" ; 
-     $register_date = '12-12-12' ; 
-     $stmt->execute() ; 
+    foreach($users as $user){
+        echo $user['id']."\t".$user['firstname']."\t".$user['email']." ::: "."\n" ; 
+        // echo "\n" ; 
+    }
 
 
-     //inserting row and execution - 3
-     $id = '888' ; 
-     $firstname = 'ajax' ; 
-     $lastname = 'mhdy' ; 
-     $email = "ajax@gmail.com" ; 
-     $register_date = '12-12-12' ; 
-     $stmt->execute() ; 
-
+    echo "\n";
 
     echo "Everything is ok !";
 } catch (PDOException $e) {
