@@ -10,39 +10,43 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    // begin the transaction
-    $conn->beginTransaction();
-
-    //single execution - 1
-    $sql_command = "insert into Test 
-        (id,firstname,lastname,email,register_date) 
-        values 
-        ('8','ajax','mhdy','ajax@gmail.com','8-12-1995')";
-
-    $conn->exec($sql_command);
+    $sql = 'insert into Test 
+            (id,firstname,lastname,email,register_date) 
+            values 
+            (:id,:firstname,:lastname,:email,:register_date) ' ; 
 
 
+    $stmt = $conn->prepare($sql) ; 
+    $stmt->bindParam(':id',$id) ; 
+    $stmt->bindParam(':firstname', $firstname);
+    $stmt->bindParam(':lastname',$lastname) ; 
+    $stmt->bindParam(':email',$email) ; 
+    $stmt->bindParam(':register_date',$register_date) ;
 
-    //single execution - 2
-    $sql_command = "insert into Test 
-        (id,firstname,lastname,email,register_date) 
-        values 
-        ('88','mhdy','hasen','mhdy@gmail.com','8-12-1995')";
+    //inserting row and execution - 1
+    $id = '8' ; 
+    $firstname = 'mhdy' ; 
+    $lastname = 'hasan' ; 
+    $email = "mhdy@gmail.com" ; 
+    $register_date = '12-12-12' ; 
+    $stmt->execute() ; 
 
-    $conn->exec($sql_command);
+     //inserting row and execution - 2
+     $id = '88' ; 
+     $firstname = 'mhdy2' ; 
+     $lastname = 'hasan' ; 
+     $email = "mhdy2@gmail.com" ; 
+     $register_date = '12-12-12' ; 
+     $stmt->execute() ; 
 
 
-
-    //single execution - 3
-    $sql_command = "insert into Test 
-        (id,firstname,lastname,email,register_date) 
-        values 
-        ('888','mhdy','hasan-2','mhdy@gmail.com','8-12-1995')";
-
-    $conn->exec($sql_command);
-
-    // commit the transaction
-    $conn->commit() ;
+     //inserting row and execution - 3
+     $id = '888' ; 
+     $firstname = 'ajax' ; 
+     $lastname = 'mhdy' ; 
+     $email = "ajax@gmail.com" ; 
+     $register_date = '12-12-12' ; 
+     $stmt->execute() ; 
 
 
     echo "Everything is ok !";
