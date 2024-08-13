@@ -13,12 +13,11 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    // $sqlCommand = "CREATE TABLE Sales (
-    //     sale_id INT PRIMARY KEY,
-    //     product_id INT,
-    //     quantity_sold INT,
-    //     sale_date DATE,
-    //     total_price DECIMAL(10, 2)
+    // $sqlCommand = "CREATE TABLE Products (
+    // product_id INT PRIMARY KEY,
+    // product_name VARCHAR(100),
+    // category VARCHAR(50),
+    // unit_price DECIMAL(10, 2)
     // )";
 
     // $sqlCommand = "delete from Sales" ;  
@@ -36,44 +35,28 @@ try {
 
     //inserting more then row of data 
 
-    $sqlCommand = "insert into Sales
-    (sale_id , product_id , quantity_sold , sale_date , total_price)
-        values 
-    (1, 101, 5, '2024-01-01', 2500.00),
-    (2, 102, 3, '2024-01-02', 900.00),
-    (3, 103, 2, '2024-01-02', 60.00),
-    (4, 104, 4, '2024-01-03', 80.00),
-    (5, 105, 6, '2024-01-03', 90.00)
-    ";
+    // $sqlCommand = "INSERT INTO Products (product_id, product_name, category, unit_price) VALUES
+    //     (101, 'Laptop', 'Computer', 500.00),
+    //     (102, 'Smartphone', 'Phone', 300.00),
+    //     (103, 'Headphones', 'Electronics', 30.00),
+    //     (106, 'TV', 'Electronics', 700.00),
+    //      (107, 'AC', 'Electronics', 800.00),
+    //     (104, 'Keyboard', 'Computer', 20.00),
+    //     (105, 'Mouse', 'Computer', 15.00);
+    //     ";
 
-    $conn->exec($sqlCommand);
+    // $conn->exec($sqlCommand);
 
+    $sqlCommand = "select * from Products" ; 
 
-    // $sqlCommand = "select last_name , email from authors" ; 
-
-    // syntax for where statement 
-    // select column1 , column2 from table_name where condition 
-
-    // echo $conn->exec($sqlCommand ); 
+    $stmt = $conn->prepare($sqlCommand);
+    $stmt->execute();
+    $products = $stmt->fetchAll(); //fetchAll will return us
 
 
-    // $sqlCommand = "select first_name , email , birthdate from authors where birthdate > '1995-05-27' and id != 20 and email = 'bogan.lesly@example.com' "  ; 
-
-
-    //simply and or not logic similar to if(condition1 and condition2 or condition3)
-    //if(!condition)
-
-    //order by statement for sorting asc or desc
-
-    // $stmt = $conn->prepare($sqlCommand);
-    // $stmt->execute();
-    // $authors = $stmt->fetchAll(); //fetchAll will return us
-
-    // // echo $authors ; 
-
-    // foreach($authors as $author){
-    //     echo $author['first_name']. " | ". $author['email']. " | " .$author['birthdate']. " | " ; 
-    // }
+    foreach ($products as $product) {
+        echo $product['product_id'] . " | " . $product['product_name'] . " | " . $product['category'] . " | ". "---";
+    }
 
     echo "\n";
 
