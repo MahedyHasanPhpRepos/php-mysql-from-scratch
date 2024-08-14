@@ -13,30 +13,20 @@ try {
     $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 
-    // MySQL IN Operator
-    // The IN operator allows you to specify multiple values in a WHERE clause.
-    // The IN operator is a shorthand for multiple OR conditions.
-
     // SELECT column_name(s)
     // FROM table_name
-    // WHERE column_name IN (value1, value2, ...);
-
-    // SELECT column_name(s)
-    // FROM table_name
-    // WHERE column_name IN (SELECT STATEMENT);    
-
-    // The IN operator is a shorthand for multiple OR conditions.
-    // $sqlCommand = "select * from Products where product_name IN ('Laptop','Smartphone')";
-    // $sqlCommand = "select * from Products where product_name NOT IN ('Laptop','Smartphone')";
+    // WHERE column_name BETWEEN value1 AND value2;
 
 
+    // $sqlCommand = "select * from Products where unit_price between 500 and 800" ; 
+    // $sqlCommand = "select * from Products where unit_price not between 500 and 800
+    //     and product_id in (103)
+    // " ; 
+    // $sqlCommand = "select * from Products where unit_price not between 500 and 800
+    // and product_id not in (103)
+    // ";
 
-    // $subCommand = "select * from Sales where total_price < 60" ;  
-
-    // this subquery returning value 
-
-    //in operator is working like multiple or and returning value is matched with
-    $sqlCommand = "select * from Products where unit_price in (select total_price from Sales where total_price < 60)";
+    $sqlCommand = "select * from Sales where sale_date between '2024-01-02' and '2024-01-03'" ; 
 
 
     $stmt = $conn->prepare($sqlCommand);
